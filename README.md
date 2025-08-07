@@ -72,7 +72,7 @@ _Work in progress._
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the BSD-3 License. See the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgements
 
@@ -84,7 +84,7 @@ We would like to acknowledge the following contributions and inspirations that m
   author={LycheeAI Hub},
   year={2025},
   howpublished={\url{https://github.com/MuammerBay/IsaacLab-SO_100}},
-  note={Implementation of tasks for SO‑ARM100 and SO‑ARM101 robots using Isaac Lab}
+  note={Implementation of IsaacLab tasks for SO‑ARM100 and SO‑ARM101 robots}
 }
 
 @article{isaaclab2024,
