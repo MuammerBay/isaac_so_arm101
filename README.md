@@ -4,9 +4,9 @@ This repository implements tasks for the SO‑ARM100 and SO‑ARM101 robots usin
 
 📰 **News featuring this repository:**
 
-* **10 June 2025:** 🎥 LycheeAI Channel Premiere: SO-ARM101 tutorial series announcement! [🔗 Watch on YouTube](https://www.youtube.com/watch?v=2uH7Zn4SAVI)
-* **23 April 2025:** 🤖 NVIDIA Omniverse Livestream: Training a Robot from Scratch in Simulation (URDF → OpenUSD). [🔗 Watch on YouTube](https://www.youtube.com/watch?v=_HMk7I-vSBQ)
-* **19 April 2025:** 🎥 LycheeAI Tutorial: How to Create External Projects in Isaac Lab. [🔗 Watch on YouTube](https://www.youtube.com/watch?v=i51krqsk8ps)
+- **10 June 2025:** 🎥 LycheeAI Channel Premiere: SO-ARM101 tutorial series announcement! [🔗 Watch on YouTube](https://www.youtube.com/watch?v=2uH7Zn4SAVI)
+- **23 April 2025:** 🤖 NVIDIA Omniverse Livestream: Training a Robot from Scratch in Simulation (URDF → OpenUSD). [🔗 Watch on YouTube](https://www.youtube.com/watch?v=_HMk7I-vSBQ)
+- **19 April 2025:** 🎥 LycheeAI Tutorial: How to Create External Projects in Isaac Lab. [🔗 Watch on YouTube](https://www.youtube.com/watch?v=i51krqsk8ps)
 
 🎬 **Watch the Lift Task in action**
 
@@ -68,4 +68,35 @@ This ensures that your policy performs as expected in Isaac Lab before attemptin
 
 ## 🔄 Sim2Real Transfer
 
-*Work in progress.*
+_Work in progress._
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgements
+
+We would like to acknowledge the following contributions and inspirations that made this project possible:
+
+```bibtex
+@misc{isaaclab-so-100,
+  title={Isaac Lab – SO‑ARM100 / SO‑ARM101 Project},
+  author={LycheeAI Hub},
+  year={2025},
+  howpublished={\url{https://github.com/MuammerBay/IsaacLab-SO_100}},
+  note={Implementation of tasks for SO‑ARM100 and SO‑ARM101 robots using Isaac Lab}
+}
+
+@article{isaaclab2024,
+  title={Isaac Lab: A Modular Framework for Robot Learning},
+  author={NVIDIA},
+  journal={arXiv preprint},
+  year={2024},
+  url={https://isaac-sim.github.io/IsaacLab/}
+}
+
+Special thanks to:
+- The Isaac Lab development team at NVIDIA for providing the simulation framework
+- HuggingFace for the SO‑ARM robot series
+- The LycheeAI Hub community for tutorials and support
+```
