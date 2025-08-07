@@ -28,67 +28,67 @@ TEMPLATE_ASSETS_DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data
 ##
 
 SO_ARM100_CFG = ArticulationCfg(
-    spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{TEMPLATE_ASSETS_DATA_DIR}/Robots/so_arm100/so_arm100/so_arm100.usd",
-        activate_contact_sensors=False,                 # Adjust based on need
-        rigid_props=sim_utils.RigidBodyPropertiesCfg(
-            disable_gravity=False,
-            max_depenetration_velocity=5.0,
+    spawn = sim_utils.UsdFileCfg(
+        usd_path = f"{TEMPLATE_ASSETS_DATA_DIR}/Robots/so_arm100/so_arm100/so_arm100.usd",
+        activate_contact_sensors = False,                 # Adjust based on need
+        rigid_props = sim_utils.RigidBodyPropertiesCfg(
+            disable_gravity = False,
+            max_depenetration_velocity = 5.0,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
-            enabled_self_collisions=False,
-            solver_position_iteration_count=8,
-            solver_velocity_iteration_count=0,
+            enabled_self_collisions = False,
+            solver_position_iteration_count = 8,
+            solver_velocity_iteration_count = 0,
         ),
     ),
-    init_state=ArticulationCfg.InitialStateCfg(
-        rot=(0.7071068, 0.0, 0.0, 0.7071068),   # Quaternion for 90 degrees rotation around Y-axis
-        joint_pos={
-            "shoulder_rotation":    0.1,
-            "shoulder_pitch":       0.5,
-            "elbow":                0.0,
-            "wrist_pitch":          0.0,
-            "wrist_roll":           0.0,
-            "gripper":              0.3,        # Middle position to make movement more apparent
+    init_state = ArticulationCfg.InitialStateCfg(
+        rot = (0.7071068, 0.0, 0.0, 0.7071068),   # Quaternion for 90 degrees rotation around Y-axis
+        joint_pos = {
+            "shoulder_pan_joint":   0.0,
+            "shoulder_lift_joint":  0.0,
+            "elbow_joint":          0.0,
+            "wrist_pitch_joint":    0.0,
+            "wrist_roll_joint":     0.0,
+            "jaw_joint":            0.3,        # Middle position to make movement more apparent
         },
         # Set initial joint velocities to zero
         joint_vel={".*": 0.0},
     ),
-    actuators={
-        # Shoulder Rotation moves: ALL masses                   (~0.8kg total)
-        # Shoulder Pitch    moves: Everything except base       (~0.65kg)
+    actuators = {
+        # Shoulder Pan      moves: ALL masses                   (~0.8kg total)
+        # Shoulder Lift     moves: Everything except base       (~0.65kg)
         # Elbow             moves: Lower arm, wrist, gripper    (~0.38kg)
         # Wrist Pitch       moves: Wrist and gripper            (~0.24kg)
         # Wrist Roll        moves: Gripper assembly             (~0.14kg)
-        # Gripper           moves: Only moving jaw              (~0.034kg)
+        # Jaw               moves: Only moving jaw              (~0.034kg)
         "arm": ImplicitActuatorCfg(
-            joint_names_expr=["shoulder_.*", "elbow", "wrist_.*"],
+            joint_names_expr = ["shoulder_.*", "elbow_joint", "wrist_.*"],
             effort_limit_sim = 1.9,
             velocity_limit_sim = 1.5,
             stiffness={
-                "shoulder_rotation":    200.0,  # Highest - moves all mass
-                "shoulder_pitch":       170.0,  # Slightly less than rotation
-                "elbow":                120.0,  # Reduced based on less mass
-                "wrist_pitch":          80.0,   # Reduced for less mass
-                "wrist_roll":           50.0,   # Low mass to move
+                "shoulder_pan_joint":   200.0,  # Highest - moves all mass
+                "shoulder_lift_joint":  170.0,  # Slightly less than rotation
+                "elbow_joint":          120.0,  # Reduced based on less mass
+                "wrist_pitch_joint":    80.0,   # Reduced for less mass
+                "wrist_roll_joint":     50.0,   # Low mass to move
             },
             damping={
-                "shoulder_rotation":    80.0,
-                "shoulder_pitch":       65.0,
-                "elbow":                45.0,
-                "wrist_pitch":          30.0,
-                "wrist_roll":           20.0,
+                "shoulder_pan_joint":   80.0,
+                "shoulder_lift_joint":  65.0,
+                "elbow_joint":          45.0,
+                "wrist_pitch_joint":    30.0,
+                "wrist_roll_joint":     20.0,
             },
         ),
         "gripper": ImplicitActuatorCfg(
-            joint_names_expr = ["gripper"],
-            effort_limit_sim =          2.5,       # Increased from 1.9 to 2.5 for stronger grip
+            joint_names_expr = ["jaw_joint"],
+            effort_limit_sim =          2.5,    # Increased from 1.9 to 2.5 for stronger grip
             velocity_limit_sim =        1.5,
-            stiffness =                 60.0,      # Increased from 25.0 to 60.0 for more reliable closing
-            damping =                   20.0,      # Increased from 10.0 to 20.0 for stability
+            stiffness =                 60.0,   # Increased from 25.0 to 60.0 for more reliable closing
+            damping =                   20.0,   # Increased from 10.0 to 20.0 for stability
         ),
     },
-    soft_joint_pos_limit_factor=0.95,
+    soft_joint_pos_limit_factor = 0.95,
 )
 """Configuration of SO-ARM robot arm."""
 

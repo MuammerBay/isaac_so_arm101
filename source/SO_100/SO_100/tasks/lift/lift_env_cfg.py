@@ -6,7 +6,7 @@
 from dataclasses import MISSING
 
 import isaaclab.sim as sim_utils
-from isaaclab.assets import ArticulationCfg, AssetBaseCfg, DeformableObjectCfg, RigidObjectCfg, RigidObjectCfg
+from isaaclab.assets import ArticulationCfg, AssetBaseCfg, DeformableObjectCfg, RigidObjectCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
 from isaaclab.managers import CurriculumTermCfg as CurrTerm
 from isaaclab.managers import EventTermCfg as EventTerm
@@ -21,21 +21,12 @@ from isaaclab.sim.spawners.from_files.from_files_cfg import GroundPlaneCfg, UsdF
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
-
-from isaaclab.assets import RigidObjectCfg
-from isaaclab.sensors import FrameTransformerCfg
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
-from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
-from isaaclab.utils import configclass
-from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 
-# from isaaclab.utils.offset import OffsetCfg
 # from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
-# from isaaclab.utils.visualizer import FRAME_MARKER_CFG
-# from isaaclab.utils.assets import RigidBodyPropertiesCfg
 
 
 # from . import mdp
@@ -262,17 +253,17 @@ class SoArm100CubeCubeLiftEnvCfg(LiftEnvCfg):
         # override actions
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot", 
-            joint_names=["Shoulder_Rotation", "Shoulder_Pitch", "Elbow", "Wrist_Pitch", "Wrist_Roll"], 
+            joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_pitch_joint", "wrist_roll_joint"], 
             scale=0.5, use_default_offset=True
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
-            joint_names=["Gripper"],
-            open_command_expr={"Gripper": 0.5},
-            close_command_expr={"Gripper": 0.0},
+            joint_names=["jaw_joint"],
+            open_command_expr={"jaw_joint": 0.5},
+            close_command_expr={"jaw_joint": 0.0},
         )
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = ["Fixed_Gripper"]
+        self.commands.object_pose.body_name = ["wrist_2_link"]
 
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
@@ -297,15 +288,15 @@ class SoArm100CubeCubeLiftEnvCfg(LiftEnvCfg):
         marker_cfg.markers["frame"].scale = (0.05, 0.05, 0.05)
         marker_cfg.prim_path = "/Visuals/FrameTransformer"
         self.scene.ee_frame = FrameTransformerCfg(
-            prim_path="{ENV_REGEX_NS}/Robot/Base",
+            prim_path="{ENV_REGEX_NS}/Robot/base",
             debug_vis=True,
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/Fixed_Gripper",
+                    prim_path="{ENV_REGEX_NS}/Robot/wrist_2_link",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.01, 0.0, 0.1],
+                        pos=[-0.01, -0.1, 0.0],
                     ),
                 ),
             ],
