@@ -78,25 +78,23 @@ This project is licensed under the BSD-3 License. See the [LICENSE](LICENSE) fil
 
 We would like to acknowledge the following contributions and inspirations that made this project possible:
 
-```bibtex
-@misc{isaaclab-so-100,
-  title={Isaac Lab – SO‑ARM100 / SO‑ARM101 Project},
-  author={LycheeAI Hub},
-  year={2025},
-  howpublished={\url{https://github.com/MuammerBay/IsaacLab-SO_100}},
-  note={Implementation of IsaacLab tasks for SO‑ARM100 and SO‑ARM101 robots}
-}
-
-@article{isaaclab2024,
-  title={Isaac Lab: A Modular Framework for Robot Learning},
-  author={NVIDIA},
-  journal={arXiv preprint},
-  year={2024},
-  url={https://isaac-sim.github.io/IsaacLab/}
+@article{mittal2023orbit,
+author={Mittal, Mayank and Yu, Calvin and Yu, Qinxi and Liu, Jingzhou and Rudin, Nikita and Hoeller, David and Yuan, Jia Lin and Singh, Ritvik and Guo, Yunrong and Mazhar, Hammad and Mandlekar, Ajay and Babich, Buck and State, Gavriel and Hutter, Marco and Garg, Animesh},
+journal={IEEE Robotics and Automation Letters},
+title={Orbit: A Unified Simulation Framework for Interactive Robot Learning Environments},
+year={2023},
+volume={8},
+number={6},
+pages={3740-3747},
+doi={10.1109/LRA.2023.3270034}
 }
 
 Special thanks to:
+
 - The Isaac Lab development team at NVIDIA for providing the simulation framework
-- HuggingFace for the SO‑ARM robot series
+- Hugging Face and The Robot Studio for the [SO‑ARM robot series](https://github.com/TheRobotStudio/SO-ARM100)
 - The LycheeAI Hub community for tutorials and support
+
+```
+
 ```
