@@ -1,0 +1,8 @@
+reviewers:
+  defaults:
+    - louislelay
+    
+options:
+  ignore_draft: true
+  ignored_keywords:
+    - DO NOT REVIEW

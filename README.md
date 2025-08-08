@@ -82,10 +82,10 @@ This project builds upon the excellent work of several open-source projects and 
 - **[NVIDIA Isaac Sim](https://developer.nvidia.com/isaac-sim)** - The underlying physics simulation platform
 - **[RSL-RL](https://github.com/leggedrobotics/rsl_rl)** - Reinforcement learning library used for training policies
 - **[SKRL](https://github.com/Toni-SM/skrl)** - Alternative RL library integration
-- **SO-ARM100/SO-ARM101 Robot** - The hardware platform that inspired this simulation environment
+- **[SO-ARM100/SO-ARM101 Robot](https://github.com/TheRobotStudio/SO-ARM100)** - The hardware platform that inspired this simulation environment
 
 Special thanks to:
 
 - The Isaac Lab development team at NVIDIA for providing the simulation framework
-- Hugging Face and The Robot Studio for the [SO‑ARM robot series](https://github.com/TheRobotStudio/SO-ARM100)
+- Hugging Face and The Robot Studio for the SO‑ARM robot series
 - The LycheeAI Hub community for tutorials and support
