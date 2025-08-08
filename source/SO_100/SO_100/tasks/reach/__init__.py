@@ -18,6 +18,7 @@ gym.register(
     kwargs={
         "env_cfg_entry_point": f"{__name__}.reach_env_cfg:SoArm100ReachEnvCfg",
         "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:ReachPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{agents.__name__}:skrl_ppo_cfg.yaml",
     },
     disable_env_checker=True,
 )
@@ -28,6 +29,8 @@ gym.register(
     kwargs={
         "env_cfg_entry_point": f"{__name__}.reach_env_cfg:SoArm100ReachEnvCfg_PLAY",
         "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_ppo_cfg:ReachPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{agents.__name__}:skrl_ppo_cfg.yaml",
+
     },
     disable_env_checker=True,
 )
