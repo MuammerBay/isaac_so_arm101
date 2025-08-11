@@ -25,7 +25,7 @@ from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
-
+import math
 # from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 
 
@@ -92,7 +92,7 @@ class CommandsCfg:
             pos_x=(-0.1, 0.1),
             pos_y=(-0.3, -0.1),
             pos_z=(0.2, 0.35),
-            roll=(0.0, 0.0),
+            roll=(math.pi/2, math.pi/2),
             pitch=(0.0, 0.0),
             yaw=(0.0, 0.0),
         ),
@@ -259,8 +259,8 @@ class SoArm100CubeCubeLiftEnvCfg(LiftEnvCfg):
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
             joint_names=["jaw_joint"],
-            open_command_expr={"jaw_joint": 0.5},
-            close_command_expr={"jaw_joint": 0.0},
+            open_command_expr={"jaw_joint": 0.3},
+            close_command_expr={"jaw_joint": -0.2},
         )
         # Set the body name for the end effector
         self.commands.object_pose.body_name = ["wrist_2_link"]
@@ -296,37 +296,37 @@ class SoArm100CubeCubeLiftEnvCfg(LiftEnvCfg):
                     prim_path="{ENV_REGEX_NS}/Robot/wrist_2_link",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[-0.01, -0.1, 0.0],
+                        pos=[-0.005, -0.1, 0.0],
                     ),
                 ),
             ],
         )
 
         # Configure cube marker with different color and path
-        cube_marker_cfg = FRAME_MARKER_CFG.copy()
-        cube_marker_cfg.markers = {
-            "frame": sim_utils.UsdFileCfg(
-                usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/UIElements/frame_prim.usd",
-                scale=(0.05, 0.05, 0.05),
-                visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0)),
-            )
-        }
-        cube_marker_cfg.prim_path = "/Visuals/CubeFrameMarker"
+        # cube_marker_cfg = FRAME_MARKER_CFG.copy()
+        # cube_marker_cfg.markers = {
+        #     "frame": sim_utils.UsdFileCfg(
+        #         usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/UIElements/frame_prim.usd",
+        #         scale=(0.05, 0.05, 0.05),
+        #         visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0)),
+        #     )
+        # }
+        # cube_marker_cfg.prim_path = "/Visuals/CubeFrameMarker"
         
-        self.scene.cube_marker = FrameTransformerCfg(
-            prim_path="{ENV_REGEX_NS}/Object",
-            debug_vis=True,
-            visualizer_cfg=cube_marker_cfg,
-            target_frames=[
-                FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Object",
-                    name="cube",
-                    offset=OffsetCfg(
-                        pos=(0.0, 0.0, 0.0),
-                    ),
-                ),
-            ],
-        )
+        # self.scene.cube_marker = FrameTransformerCfg(
+        #     prim_path="{ENV_REGEX_NS}/Object",
+        #     debug_vis=True,
+        #     visualizer_cfg=cube_marker_cfg,
+        #     target_frames=[
+        #         FrameTransformerCfg.FrameCfg(
+        #             prim_path="{ENV_REGEX_NS}/Object",
+        #             name="cube",
+        #             offset=OffsetCfg(
+        #                 pos=(0.0, 0.0, 0.0),
+        #             ),
+        #         ),
+        #     ],
+        # )
 
 
 
