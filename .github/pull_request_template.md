@@ -1,5 +1,12 @@
 <!-- 
 Thank you for taking the time to contribute! Please complete ALL sections below to help us in accurately assessing and addressing the pull request.
+
+**Before you start:** Please read our [Contributing Guide](../CONTRIBUTING.md) for details on setting up your environment, following our coding style, and passing pre-commit checks.
+-->
+
+## 📝 Description  
+<!-- 
+Briefly describe what this PR does. Be concise but informative. Example: This PR adds a new "Pick-and-Place" task environment and training configurations.
 -->
 
 ## 🛠 Type of Change
@@ -13,11 +20,6 @@ Delete those not concerned.
 - Refactor or code cleanup  
 - Maintenance or dependency update  
 - Other  
-
-## 📝 Description  
-<!-- 
-Briefly describe what this PR does. Be concise but informative. Example: This PR adds a new "Pick-and-Place" task environment and training configurations.
--->
 
 ## 🧪 Testing
 <!-- 
