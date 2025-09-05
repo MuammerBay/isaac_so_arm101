@@ -68,4 +68,45 @@ This ensures that your policy performs as expected in Isaac Lab before attemptin
 
 ## 🔄 Sim2Real Transfer
 
-_Work in Progress._
+_Work in progress._
+
+## 🤝 Contributing
+
+We welcome contributions of all kinds!
+Please read our [Contributing Guide](CONTRIBUTING.md) to learn how to set up your environment, follow our coding style, and submit pull requests.
+
+## 📄 License
+
+This project is licensed under the BSD 3-Clause License. See the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgements
+
+This project builds upon the excellent work of several open-source projects and communities:
+
+- **[Isaac Lab](https://isaac-sim.github.io/IsaacLab/)** - The foundational robotics simulation framework that powers this project
+- **[NVIDIA Isaac Sim](https://developer.nvidia.com/isaac-sim)** - The underlying physics simulation platform
+- **[RSL-RL](https://github.com/leggedrobotics/rsl_rl)** - Reinforcement learning library used for training policies
+- **[SKRL](https://github.com/Toni-SM/skrl)** - Alternative RL library integration
+- **[SO-ARM100/SO-ARM101 Robot](https://github.com/TheRobotStudio/SO-ARM100)** - The hardware platform that inspired this simulation environment
+
+Special thanks to:
+
+- The Isaac Lab development team at NVIDIA for providing the simulation framework
+- Hugging Face and The Robot Studio for the SO‑ARM robot series
+- The LycheeAI Hub community for tutorials and support
+
+## 📚 Citation
+
+If you use this work, please cite it as:
+
+```bibtex
+@software{Louis_Isaac_Lab_2025,
+author = {Louis, Le Lay and Muammer, Bay},
+doi = {https://doi.org/10.5281/zenodo.16794229},
+license = {BSD-3-Clause},
+month = apr,
+title = {{Isaac Lab – SO‑ARM100 / SO‑ARM101 Project}},
+url = {https://github.com/MuammerBay/isaac_so_arm101},
+version = {1.1.0},
+year = {2025}
+}
