@@ -1,7 +1,7 @@
 
 # Contributing Guidelines
 
-Thank you for your interest in contributing!  
+Thank you for your interest in contributing!
 We welcome all kinds of contributions — bug reports, bug fixes, feature implementations, documentation improvements, and more.
 
 Please follow these guidelines to ensure a smooth and productive collaboration.
@@ -47,7 +47,7 @@ Click the **Fork** button at the top-right of the repository page to create your
 
 > Note: Setup SSH keys (if you haven’t already)
 
-To push changes via SSH, you need to add your SSH key to your GitHub account.  
+To push changes via SSH, you need to add your SSH key to your GitHub account.
 Follow the official guide here: **[GitHub SSH setup](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)**
 
 ```bash
@@ -79,7 +79,7 @@ git merge upstream/main
 
 ### 4. Create a Feature Branch
 
-Always create a new branch from `main` for your work.  
+Always create a new branch from `main` for your work.
 Use a **clear, kebab-case** name describing your contribution:
 
 ```bash
@@ -94,15 +94,15 @@ git checkout -b adds-contributing-guide
 
 ### Commit Messages
 
-- Use **lowercase** messages  
-- Start with a **third-person verb** (e.g., `adds`, `updates`, `fixes`)  
+- Use **lowercase** messages
+- Start with a **third-person verb** (e.g., `adds`, `updates`, `fixes`)
 - Keep messages **short and descriptive**
 
 **Examples:**
 
 ```
-adds contributing guide  
-fixes broken link in readme  
+adds contributing guide
+fixes broken link in readme
 updates config for python 3.10
 ```
 
@@ -137,13 +137,12 @@ git push origin your-working-branch
 
 ## ℹ️ Best Practices
 
-- ✅ Keep PRs focused and minimal — one feature or fix per PR  
-- 🚫 Avoid unrelated changes  
-- 📖 Update documentation if needed  
+- ✅ Keep PRs focused and minimal — one feature or fix per PR
+- 🚫 Avoid unrelated changes
+- 📖 Update documentation if needed
 - 💬 Ask questions in the PR if anything is unclear
 
 ---
 
-Thank you again for contributing! 💙  
+Thank you again for contributing! 💙
 Let’s build something great together.
-

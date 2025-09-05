@@ -72,7 +72,7 @@ _Work in progress._
 
 ## 🤝 Contributing
 
-We welcome contributions of all kinds!  
+We welcome contributions of all kinds!
 Please read our [Contributing Guide](CONTRIBUTING.md) to learn how to set up your environment, follow our coding style, and submit pull requests.
 
 ## 📄 License

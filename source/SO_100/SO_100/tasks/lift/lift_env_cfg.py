@@ -1,4 +1,9 @@
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# Copyright (c) 2024-2025, Muammer Bay (LycheeAI), Louis Le Lay
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
 # All rights reserved.
 #
 # SPDX-License-Identifier: BSD-3-Clause
@@ -6,7 +11,15 @@
 from dataclasses import MISSING
 
 import isaaclab.sim as sim_utils
-from isaaclab.assets import ArticulationCfg, AssetBaseCfg, DeformableObjectCfg, RigidObjectCfg, RigidObjectCfg
+
+# from . import mdp
+import isaaclab_tasks.manager_based.manipulation.lift.mdp as mdp
+from isaaclab.assets import (
+    ArticulationCfg,
+    AssetBaseCfg,
+    DeformableObjectCfg,
+    RigidObjectCfg,
+)
 from isaaclab.envs import ManagerBasedRLEnvCfg
 from isaaclab.managers import CurriculumTermCfg as CurrTerm
 from isaaclab.managers import EventTermCfg as EventTerm
@@ -16,19 +29,15 @@ from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
-from isaaclab.sensors.frame_transformer.frame_transformer_cfg import FrameTransformerCfg
+from isaaclab.sensors.frame_transformer.frame_transformer_cfg import (
+    FrameTransformerCfg,
+    OffsetCfg,
+)
+from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import GroundPlaneCfg, UsdFileCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
-
-
-from isaaclab.assets import RigidObjectCfg
-from isaaclab.sensors import FrameTransformerCfg
-from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
-from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
-from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
-from isaaclab.utils import configclass
-from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
+from SO_100.robots import SO_ARM100_CFG
 
 from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 
@@ -37,11 +46,6 @@ from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 # from isaaclab.utils.visualizer import FRAME_MARKER_CFG
 # from isaaclab.utils.assets import RigidBodyPropertiesCfg
 
-
-# from . import mdp
-import isaaclab_tasks.manager_based.manipulation.lift.mdp as mdp
-
-from SO_100.robots import SO_ARM100_CFG
 
 ##
 # Scene definition
@@ -160,7 +164,7 @@ class EventCfg:
 class RewardsCfg:
     """Reward terms for the MDP."""
 
-    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=1.0)
+    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.05}, weight=1.0)
 
     lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": 0.04}, weight=15.0)
 
@@ -248,8 +252,6 @@ class LiftEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.friction_correlation_distance = 0.00625
 
 
-
-
 @configclass
 class SoArm100CubeCubeLiftEnvCfg(LiftEnvCfg):
     def __post_init__(self):
@@ -261,9 +263,10 @@ class SoArm100CubeCubeLiftEnvCfg(LiftEnvCfg):
 
         # override actions
         self.actions.arm_action = mdp.JointPositionActionCfg(
-            asset_name="robot", 
-            joint_names=["Shoulder_Rotation", "Shoulder_Pitch", "Elbow", "Wrist_Pitch", "Wrist_Roll"], 
-            scale=0.5, use_default_offset=True
+            asset_name="robot",
+            joint_names=["Shoulder_Rotation", "Shoulder_Pitch", "Elbow", "Wrist_Pitch", "Wrist_Roll"],
+            scale=0.5,
+            use_default_offset=True,
         )
         self.actions.gripper_action = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
@@ -310,34 +313,6 @@ class SoArm100CubeCubeLiftEnvCfg(LiftEnvCfg):
                 ),
             ],
         )
-
-        # Configure cube marker with different color and path
-        cube_marker_cfg = FRAME_MARKER_CFG.copy()
-        cube_marker_cfg.markers = {
-            "frame": sim_utils.UsdFileCfg(
-                usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/UIElements/frame_prim.usd",
-                scale=(0.05, 0.05, 0.05),
-                visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0)),
-            )
-        }
-        cube_marker_cfg.prim_path = "/Visuals/CubeFrameMarker"
-        
-        self.scene.cube_marker = FrameTransformerCfg(
-            prim_path="{ENV_REGEX_NS}/Object",
-            debug_vis=True,
-            visualizer_cfg=cube_marker_cfg,
-            target_frames=[
-                FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Object",
-                    name="cube",
-                    offset=OffsetCfg(
-                        pos=(0.0, 0.0, 0.0),
-                    ),
-                ),
-            ],
-        )
-
-
 
 
 @configclass
