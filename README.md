@@ -19,7 +19,7 @@ This repository implements tasks for the SO‑ARM100 and SO‑ARM101 robots usin
 
 ### 🤖 Don’t have a SO-ARM? → Buy one with a Discount: `LYCHEEAI5` !
 
-There are official vendors who sell all the required parts and already assembled kits such as WowRobo who sponsor this project. Use code `LYCHEEAI5` at checkout for a 5% discount on the [SO-ARM101](https://shop.wowrobo.com/products/so-arm101-diy-kit-assembled-version-1). Now also for [LeKiwi](https://shop.wowrobo.com/products/lekiwi-mobile-robot).
+There are official vendors who sell all the required parts and already assembled kits such as WowRobo who sponsor this project. Use code `LYCHEEAI5` at checkout for a 5% discount on the [SO-ARM101](https://shop.wowrobo.com/?sca_ref=8879221). Now also for [LeKiwi](https://shop.wowrobo.com/products/lekiwi-mobile-robot).
 
 
 ### 🎬 Watch the Lift Task in action
