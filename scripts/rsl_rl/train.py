@@ -146,11 +146,16 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     # wrap for video recording
     if args_cli.video:
+        # Optimize for high env count (762 envs) - minimal recording overhead
+        optimized_interval = max(args_cli.video_interval, 20000)  # Min 20k steps between videos
+        optimized_length = min(args_cli.video_length, 100)       # Max 100 steps per video
+        
         video_kwargs = {
             "video_folder": os.path.join(log_dir, "videos", "train"),
-            "step_trigger": lambda step: step % args_cli.video_interval == 0,
-            "video_length": args_cli.video_length,
+            "step_trigger": lambda step: step % optimized_interval == 0,
+            "video_length": optimized_length,
             "disable_logger": True,
+            "fps": 10,  # Low FPS for minimal file size
         }
         print("[INFO] Recording videos during training.")
         print_dict(video_kwargs, nesting=4)
