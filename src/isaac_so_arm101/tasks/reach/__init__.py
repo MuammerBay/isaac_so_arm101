@@ -21,7 +21,7 @@ from . import agents
 # ----------------------------------------------------------------
 
 gym.register(
-    id="SO-ARM100-Reach-v0",
+    id="Isaac-SO-ARM100-Reach-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": f"{__name__}.joint_pos_env_cfg:SoArm100ReachEnvCfg",
@@ -31,7 +31,7 @@ gym.register(
 )
 
 gym.register(
-    id="SO-ARM100-Reach-Play-v0",
+    id="Isaac-SO-ARM100-Reach-Play-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": f"{__name__}.joint_pos_env_cfg:SoArm100ReachEnvCfg_PLAY",
@@ -47,7 +47,7 @@ gym.register(
 # Joint position controller
 
 gym.register(
-    id="SO-ARM100-Reach-ROSCON-v0",
+    id="Isaac-SO-ARM100-Reach-ROSCON-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": f"{__name__}.joint_pos_env_cfg:SoArm100ReachRosConEnvCfg",
@@ -57,7 +57,7 @@ gym.register(
 )
 
 gym.register(
-    id="SO-ARM100-Reach-ROSCON-Play-v0",
+    id="Isaac-SO-ARM100-Reach-ROSCON-Play-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": f"{__name__}.joint_pos_env_cfg:SoArm100ReachRosConEnvCfg_PLAY",
@@ -69,7 +69,7 @@ gym.register(
 # Relative IK controller
 
 gym.register(
-    id="SO-ARM100-Reach-ROSCON-IK-v0",
+    id="Isaac-SO-ARM100-Reach-ROSCON-IK-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": f"{__name__}.ik_rel_env_cfg:SoArm100ReachRosCon_IK_EnvCfg",
@@ -79,7 +79,7 @@ gym.register(
 )
 
 gym.register(
-    id="SO-ARM100-Reach-ROSCON-IK-Play-v0",
+    id="Isaac-SO-ARM100-Reach-ROSCON-IK-Play-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     kwargs={
         "env_cfg_entry_point": f"{__name__}.ik_rel_env_cfg:SoArm100ReachRosCon_IK_EnvCfg_PLAY",

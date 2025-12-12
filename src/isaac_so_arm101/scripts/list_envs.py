@@ -28,6 +28,7 @@ import gymnasium as gym
 from prettytable import PrettyTable
 
 import isaaclab_tasks  # noqa: F401
+import isaac_so_arm101.tasks  # noqa: F401
 
 
 def main():

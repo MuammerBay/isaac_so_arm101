@@ -33,6 +33,7 @@ import gymnasium as gym
 import torch
 
 import isaaclab_tasks  # noqa: F401
+import isaac_so_arm101.tasks  # noqa: F401
 from isaaclab_tasks.utils import parse_env_cfg
 
 # PLACEHOLDER: Extension template (do not remove this comment)
