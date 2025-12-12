@@ -28,7 +28,7 @@ import isaaclab.sim as sim_utils
 from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets.articulation import ArticulationCfg
 
-TEMPLATE_ASSETS_DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data"
+TEMPLATE_ASSETS_DATA_DIR = Path(__file__).resolve().parent
 
 ##
 # Configuration
@@ -36,7 +36,7 @@ TEMPLATE_ASSETS_DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data
 
 SO_ARM100_ROSCON_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{TEMPLATE_ASSETS_DATA_DIR}/Robots/so_arm100_roscon/so_arm100.usd",
+        usd_path=f"{TEMPLATE_ASSETS_DATA_DIR}/usds/so_arm100.usd",
         activate_contact_sensors=False,  # Adjust based on need
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
