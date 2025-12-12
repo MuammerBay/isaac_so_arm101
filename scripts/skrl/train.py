@@ -81,7 +81,7 @@ elif args_cli.ml_framework.startswith("jax"):
     from skrl.utils.runner.jax import Runner
 
 import isaaclab_tasks  # noqa: F401
-import SO_100.tasks  # noqa: F401
+import isaac_so_arm101.tasks  # noqa: F401
 from isaaclab.envs import (
     DirectMARLEnv,
     DirectMARLEnvCfg,

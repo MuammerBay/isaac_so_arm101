@@ -33,7 +33,7 @@ There are official vendors who sell all the required parts and already assembled
 3. Install the package:
 
    ```bash
-   python -m pip install -e source/SO_100
+   python -m pip install -e source/isaac_so_arm101
    ```
 
 ## 🚀 Quickstart

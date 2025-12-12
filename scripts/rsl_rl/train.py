@@ -79,7 +79,7 @@ from datetime import datetime
 
 import gymnasium as gym
 import isaaclab_tasks  # noqa: F401
-import SO_100.tasks  # noqa: F401
+import isaac_so_arm101.tasks  # noqa: F401
 import torch
 from isaaclab.envs import (
     DirectMARLEnv,
