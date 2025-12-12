@@ -1,14 +1,9 @@
-# Copyright (c) 2024-2025, Muammer Bay (LycheeAI), Louis Le Lay
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-#
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
+# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
 # All rights reserved.
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-"""Script to run an environment with zero action agent."""
+"""Script to an environment with random action agent."""
 
 """Launch Isaac Sim Simulator first."""
 
@@ -17,7 +12,7 @@ import argparse
 from isaaclab.app import AppLauncher
 
 # add argparse arguments
-parser = argparse.ArgumentParser(description="Zero agent for Isaac Lab environments.")
+parser = argparse.ArgumentParser(description="Random agent for Isaac Lab environments.")
 parser.add_argument(
     "--disable_fabric", action="store_true", default=False, help="Disable fabric and use USD I/O operations."
 )
@@ -35,15 +30,18 @@ simulation_app = app_launcher.app
 """Rest everything follows."""
 
 import gymnasium as gym
+import torch
+
 import isaaclab_tasks  # noqa: F401
 import isaac_so_arm101.tasks  # noqa: F401
-import torch
 from isaaclab_tasks.utils import parse_env_cfg
+
+# PLACEHOLDER: Extension template (do not remove this comment)
 
 
 def main():
-    """Zero actions agent with Isaac Lab environment."""
-    # parse configuration
+    """Random actions agent with Isaac Lab environment."""
+    # create environment configuration
     env_cfg = parse_env_cfg(
         args_cli.task, device=args_cli.device, num_envs=args_cli.num_envs, use_fabric=not args_cli.disable_fabric
     )
@@ -59,8 +57,8 @@ def main():
     while simulation_app.is_running():
         # run everything in inference mode
         with torch.inference_mode():
-            # compute zero actions
-            actions = torch.zeros(env.action_space.shape, device=env.unwrapped.device)
+            # sample actions from -1 to 1
+            actions = 2 * torch.rand(env.action_space.shape, device=env.unwrapped.device) - 1
             # apply actions
             env.step(actions)
 

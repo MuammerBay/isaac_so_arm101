@@ -3,7 +3,7 @@
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Isaac Sim](https://img.shields.io/badge/IsaacSim-5.1.0-76B900.svg)](https://docs.isaacsim.omniverse.nvidia.com/latest/index.html)
 [![Isaac Lab](https://img.shields.io/badge/IsaacLab-2.3.0-8A2BE2.svg)](https://isaac-sim.github.io/IsaacLab/main/index.html)
-[![Python](https://img.shields.io/badge/python-3.11-3776AB.svg)](https://docs.python.org/3/whatsnew/3.11.html)
+[![Python](https://img.shields.io/badge/python-3.11-3776AB.svg)](https://docsthon.org/3/whatsnew/3.11.html)
 
 This repository implements tasks for the SO‑ARM100 and SO‑ARM101 robots using Isaac Lab. It serves as the foundation for several tutorials in the LycheeAI Hub series [Project: SO‑ARM101 × Isaac Sim × Isaac Lab](https://lycheeai-hub.com/project-so-arm101-x-isaac-sim-x-isaac-lab-tutorial-series).
 
@@ -33,14 +33,14 @@ uv sync
 List available environments.
 
 ```bash
-uv run scripts/list_envs.py
+uv run list_envs
 ```
 
 Test with dummy agents.
 
 ```bash
-uv run scripts/zero_agent.py --task SO-ARM100-Reach-Play-v0    # send zero actions
-uv run scripts/random_agent.py --task SO-ARM100-Reach-Play-v0  # send random actions
+uv run zero_agent --task SO-ARM100-Reach-Play-v0    # send zero actions
+uv run random_agent --task SO-ARM100-Reach-Play-v0  # send random actions
 ```
 
 ## Reaching
@@ -48,13 +48,13 @@ uv run scripts/random_agent.py --task SO-ARM100-Reach-Play-v0  # send random act
 Train a RL-based IK policy.
 
 ```bash
-uv run scripts/rsl_rl/train.py --task SO-ARM100-Reach-v0 --headless
+uv run train --task SO-ARM100-Reach-v0 --headless
 ```
 
 Evaluate a trained policy.
 
 ```bash
-uv run scripts/rsl_rl/play.py --task SO-ARM100-Reach-Play-v0
+uv run play --task SO-ARM100-Reach-Play-v0
 ```
 
 ## Sim2Real Transfer
