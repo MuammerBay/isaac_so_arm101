@@ -1,119 +1,83 @@
-# Isaac Lab – SO‑ARM100 / SO‑ARM101 Project
+# Reinforcement Learning with the SO-ARM100 / SO-ARM101 in Isaac Lab
 
-[![IsaacSim](https://img.shields.io/badge/IsaacSim-4.5.0/5.0.0-green.svg)](https://docs.isaacsim.omniverse.nvidia.com/latest/index.html)
-[![IsaacLab](https://img.shields.io/badge/IsaacLab-2.2.0-green.svg)](https://isaac-sim.github.io/IsaacLab/main/index.html)
-[![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://docs.python.org/3/whatsnew/3.11.html)
-[![Linux platform](https://img.shields.io/badge/platform-linux--64-orange.svg)](https://releases.ubuntu.com/22.04/)
-[![Windows platform](https://img.shields.io/badge/platform-windows--64-orange.svg)](https://www.microsoft.com/en-us/)
-[![DOI](https://zenodo.org/badge/968772915.svg)](https://zenodo.org/badge/latestdoi/968772915)
-[![License](https://img.shields.io/badge/license-BSD--3-yellow.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![ci-test](https://img.shields.io/github/actions/workflow/status/MuammerBay/isaac_so_arm101/ci-test.yml?branch=main)](https://github.com/MuammerBay/isaac_so_arm101/actions/workflows/ci-test.yml)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+[![Isaac Sim](https://img.shields.io/badge/IsaacSim-5.1.0-76B900.svg)](https://docs.isaacsim.omniverse.nvidia.com/latest/index.html)
+[![Isaac Lab](https://img.shields.io/badge/IsaacLab-2.3.0-8A2BE2.svg)](https://isaac-sim.github.io/IsaacLab/main/index.html)
+[![Python](https://img.shields.io/badge/python-3.11-3776AB.svg)](https://docs.python.org/3/whatsnew/3.11.html)
 
 This repository implements tasks for the SO‑ARM100 and SO‑ARM101 robots using Isaac Lab. It serves as the foundation for several tutorials in the LycheeAI Hub series [Project: SO‑ARM101 × Isaac Sim × Isaac Lab](https://lycheeai-hub.com/project-so-arm101-x-isaac-sim-x-isaac-lab-tutorial-series).
 
 ### 📰 News featuring this repository:
 
-- **10 June 2025:** 🎥 LycheeAI Channel Premiere: SO-ARM101 tutorial series announcement! [🔗 Watch on YouTube](https://www.youtube.com/watch?v=2uH7Zn4SAVI)
-- **23 April 2025:** 🤖 NVIDIA Omniverse Livestream: Training a Robot from Scratch in Simulation (URDF → OpenUSD). [🔗 Watch on YouTube](https://www.youtube.com/watch?v=_HMk7I-vSBQ)
-- **19 April 2025:** 🎥 LycheeAI Tutorial: How to Create External Projects in Isaac Lab. [🔗 Watch on YouTube](https://www.youtube.com/watch?v=i51krqsk8ps)
+- **23 April 2025:** NVIDIA Omniverse Livestream: Training a Robot from Scratch in Simulation (URDF → OpenUSD). [Watch on YouTube](https://www.youtube.com/watch?v=_HMk7I-vSBQ)
+- **19 April 2025:** LycheeAI Tutorial: How to Create External Projects in Isaac Lab. [Watch on YouTube](https://www.youtube.com/watch?v=i51krqsk8ps)
 
-### 🤖 Don’t have a SO-ARM? → Buy one with a Discount: `LYCHEEAI5` !
+## Installation
 
-There are official vendors who sell all the required parts and already assembled kits such as WowRobo who sponsor this project. Use code `LYCHEEAI5` at checkout for a 5% discount on the [SO-ARM101](https://shop.wowrobo.com/?sca_ref=8879221). Now also for [LeKiwi](https://shop.wowrobo.com/products/lekiwi-mobile-robot).
+Install uv.
+```bash
+curl -LsSf https://astral.sh/uv/install.sh \| sh
+```
+
+Clone the repository.
+
+```bash
+git clone https://github.com/pal-robotics/pal_mjlab.git 
+cd pal_mjlab
+uv sync
+```
 
 
-### 🎬 Watch the Lift Task in action
+## Quickstart
+
+List available environments.
+
+```bash
+uv run scripts/list_envs.py
+```
+
+Test with dummy agents.
+
+```bash
+uv run scripts/zero_agent.py --task SO-ARM100-Reach-Play-v0    # send zero actions
+uv run scripts/random_agent.py --task SO-ARM100-Reach-Play-v0  # send random actions
+```
+
+## Reaching
+
+Train a RL-based IK policy.
+
+```bash
+uv run scripts/rsl_rl/train.py --task SO-ARM100-Reach-v0 --headless
+```
+
+Evaluate a trained policy.
+
+```bash
+uv run scripts/rsl_rl/play.py --task SO-ARM100-Reach-Play-v0
+```
+
+## Sim2Real Transfer
+
+_Work in progress._
+
+## Results
 
 ![rl-video-step-0](https://github.com/user-attachments/assets/890e3a9d-5cbd-46a5-9317-37d0f2511684)
 
-## 🛠️ Installation
-
-1. Install Isaac Lab by following the [official installation guide](https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/index.html) (using conda).
-2. Clone this repository **outside** the `IsaacLab` directory.
-3. Install the package:
-
-   ```bash
-   python -m pip install -e source/SO_100
-   ```
-
-## 🚀 Quickstart
-
-To list all available environments:
-
-```bash
-python scripts/list_envs.py
-```
-
-## 🐞 Debugging Tasks
-
-Two scripts can help verify your setup:
-
-**Zero Agent**
-
-Sends zero commands to all robots, confirming that the environment loads correctly:
-
-```bash
-python scripts/zero_agent.py --task SO-ARM100-Reach-Play-v0
-```
-
-**Random Agent**
-
-Sends random commands to all robots, confirming proper actuation:
-
-```bash
-python scripts/random_agent.py --task SO-ARM100-Reach-Play-v0
-```
-
-## 🏋️‍♂️ Training and Playback
-
-You can train a policy for SO‑ARM100 / SO‑ARM101 tasks (for example, the **Reach** task, which is a basic RL-based IK) with the `rsl_rl` and/or `skrl` library:
-
-```bash
-python scripts/rsl_rl/train.py --task SO-ARM100-Reach-v0 --headless
-```
-
-After training, validate the learned policy:
-
-```bash
-python scripts/rsl_rl/play.py --task SO-ARM100-Reach-Play-v0
-```
-
-This ensures that your policy performs as expected in Isaac Lab before attempting real‑world transfer.
-
-## 🧩 Sim2Sim Transfer
-
-_Work in progress._
-
-## 🛠️ Sim2Real Transfer
-
-_Work in progress._
-
-## 🤝 Contributing
-
-We welcome contributions of all kinds!
-Please read our [Contributing Guide](CONTRIBUTING.md) to learn how to set up your environment, follow our coding style, and submit pull requests.
-
-## 📄 License
-
-This project is licensed under the BSD 3-Clause License. See the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgements
+## Acknowledgements
 
 This project builds upon the excellent work of several open-source projects and communities:
 
-- **[Isaac Lab](https://isaac-sim.github.io/IsaacLab/)** - The foundational robotics simulation framework that powers this project
-- **[NVIDIA Isaac Sim](https://developer.nvidia.com/isaac-sim)** - The underlying physics simulation platform
-- **[RSL-RL](https://github.com/leggedrobotics/rsl_rl)** - Reinforcement learning library used for training policies
-- **[SKRL](https://github.com/Toni-SM/skrl)** - Alternative RL library integration
-- **[SO-ARM100/SO-ARM101 Robot](https://github.com/TheRobotStudio/SO-ARM100)** - The hardware platform that inspired this simulation environment
+- **[Isaac Lab](https://isaac-sim.github.io/IsaacLab/)** — The foundational robotics simulation framework that powers this project
+- **[NVIDIA Isaac Sim](https://developer.nvidia.com/isaac-sim)** — The underlying physics simulation platform
+- **[RSL-RL](https://github.com/leggedrobotics/rsl_rl)** — Reinforcement learning library used for training policies
+- **[SO-ARM100/SO-ARM101 Robot](https://github.com/TheRobotStudio/SO-ARM100)** — The hardware platform that inspired this simulation environment
+- **[WowRobo](https://shop.wowrobo.com/?sca_ref=8879221)** — Project sponsor providing assembled SO-ARM kits and parts (use code `LYCHEEAI5` for 5% off)
 
-Special thanks to:
+Special thanks to the Isaac Lab development team at NVIDIA, Hugging Face and The Robot Studio for the SO‑ARM robot series, and the LycheeAI Hub community for tutorials and support.
 
-- The Isaac Lab development team at NVIDIA for providing the simulation framework
-- Hugging Face and The Robot Studio for the SO‑ARM robot series
-- The LycheeAI Hub community for tutorials and support
-
-## 📚 Citation
+## Citation
 
 If you use this work, please cite it as:
 
@@ -128,3 +92,8 @@ If you use this work, please cite it as:
    version = {1.1.0},
    year = {2025}
 }
+```
+
+## License
+
+See [LICENSE](LICENSE) for details.

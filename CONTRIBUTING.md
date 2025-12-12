@@ -51,8 +51,8 @@ To push changes via SSH, you need to add your SSH key to your GitHub account.
 Follow the official guide here: **[GitHub SSH setup](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)**
 
 ```bash
-git clone git@github.com:<your-username>/IsaacLab-SO_100.git
-cd IsaacLab-SO_100
+git clone git@github.com:<your-username>/isaac_so_arm101.git
+cd isaac_so_arm101
 ```
 
 Enable pre-commit hooks
@@ -67,7 +67,7 @@ pre-commit install
 To keep your fork up-to-date with the original project:
 
 ```bash
-git remote add upstream https://github.com/MuammerBay/IsaacLab-SO_100.git
+git remote add upstream https://github.com/MuammerBay/isaac_so_arm101.git
 ```
 
 To fetch and merge changes from upstream later:
@@ -129,7 +129,7 @@ git push origin your-working-branch
 
 1. Go to your fork on GitHub.
 2. Click **Compare & pull request**.
-3. Set the **base repository** to `MuammerBay/IsaacLab-SO_100` and base branch to `main`.
+3. Set the **base repository** to `MuammerBay/isaac_so_arm101` and base branch to `main`.
 4. Add a clear title and short description.
 5. Submit the pull request!
 

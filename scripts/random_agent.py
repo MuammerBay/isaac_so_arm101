@@ -36,7 +36,7 @@ simulation_app = app_launcher.app
 
 import gymnasium as gym
 import isaaclab_tasks  # noqa: F401
-import SO_100.tasks  # noqa: F401
+import isaac_so_arm101.tasks  # noqa: F401
 import torch
 from isaaclab_tasks.utils import parse_env_cfg
 
