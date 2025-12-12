@@ -57,15 +57,15 @@ Evaluate a trained policy.
 uv run scripts/rsl_rl/play.py --task SO-ARM100-Reach-Play-v0
 ```
 
-## 🛠️ Sim2Real Transfer
+## Sim2Real Transfer
 
 _Work in progress._
 
-## 🎬 Watch the Lift Task in action
+## Results
 
 ![rl-video-step-0](https://github.com/user-attachments/assets/890e3a9d-5cbd-46a5-9317-37d0f2511684)
 
-## 🙏 Acknowledgements
+## Acknowledgements
 
 This project builds upon the excellent work of several open-source projects and communities:
 
@@ -77,7 +77,7 @@ This project builds upon the excellent work of several open-source projects and 
 
 Special thanks to the Isaac Lab development team at NVIDIA, Hugging Face and The Robot Studio for the SO‑ARM robot series, and the LycheeAI Hub community for tutorials and support.
 
-## 📚 Citation
+## Citation
 
 If you use this work, please cite it as:
 
