@@ -1,10 +1,10 @@
 [project]
 name = "isaac-so-arm101"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.2.0"
+description = "Reinforcement Learning with the SO-ARM100 / SO-ARM101 in Isaac Lab"
 readme = "README.md"
 authors = [
-    { name = "Louis Le Lay", email = "louislelay@pal-robotics.com" }
+    { name = "Louis Le Lay", email = "le.lay.louis@gmail.com" }
 ]
 requires-python = "==3.11.*"
 dependencies = [
