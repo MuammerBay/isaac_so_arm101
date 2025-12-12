@@ -17,8 +17,8 @@
 # import mdp
 import isaaclab_tasks.manager_based.manipulation.reach.mdp as mdp
 from isaaclab.utils import configclass
-from SO_100.robots import SO_ARM100_CFG, SO_ARM100_ROSCON_CFG  # noqa: F401
-from SO_100.tasks.reach.reach_env_cfg import ReachEnvCfg
+from isaac_so_arm101.robots import SO_ARM100_CFG, SO_ARM100_ROSCON_CFG  # noqa: F401
+from isaac_so_arm101.tasks.reach.reach_env_cfg import ReachEnvCfg
 
 ##
 # Scene definition

@@ -15,7 +15,7 @@ from isaaclab.utils import configclass
 ##
 # Pre-defined configs
 ##
-from SO_100.robots import SO_ARM100_ROSCON_HIGH_PD_CFG  # noqa: F401
+from isaac_so_arm101.robots import SO_ARM100_ROSCON_HIGH_PD_CFG  # noqa: F401
 
 from .joint_pos_env_cfg import SoArm100ReachRosConEnvCfg
 
