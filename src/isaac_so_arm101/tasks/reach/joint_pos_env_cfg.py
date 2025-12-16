@@ -17,16 +17,12 @@
 # import mdp
 import isaaclab_tasks.manager_based.manipulation.reach.mdp as mdp
 from isaaclab.utils import configclass
-from isaac_so_arm101.robots import SO_ARM100_CFG, SO_ARM100_ROSCON_CFG  # noqa: F401
+from isaac_so_arm101.robots import SO_ARM100_CFG, SO_ARM101_CFG  # noqa: F401
 from isaac_so_arm101.tasks.reach.reach_env_cfg import ReachEnvCfg
 
 ##
 # Scene definition
 ##
-
-# ----------------------------------------------------------------
-# --------------- LycheeAI live asset ----------------------------
-# ----------------------------------------------------------------
 
 
 @configclass
@@ -38,22 +34,22 @@ class SoArm100ReachEnvCfg(ReachEnvCfg):
         # switch robot to franka
         self.scene.robot = SO_ARM100_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
         # override rewards
-        self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["Fixed_Gripper"]
-        self.rewards.end_effector_position_tracking_fine_grained.params["asset_cfg"].body_names = ["Fixed_Gripper"]
-        self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["Fixed_Gripper"]
+        self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["gripper"]
+        self.rewards.end_effector_position_tracking_fine_grained.params["asset_cfg"].body_names = ["gripper"]
+        self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["gripper"]
 
         # TODO: reorient command target
 
         # override actions
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot",
-            joint_names=["Shoulder_Rotation", "Shoulder_Pitch", "Elbow", "Wrist_Pitch", "Wrist_Roll"],
+            joint_names=["shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll"],
             scale=0.5,
             use_default_offset=True,
         )
         # override command generator body
         # end-effector is along z-direction
-        self.commands.ee_pose.body_name = ["Fixed_Gripper"]
+        self.commands.ee_pose.body_name = ["gripper"]
         # self.commands.ee_pose.ranges.pitch = (math.pi, math.pi)
 
 
@@ -69,23 +65,18 @@ class SoArm100ReachEnvCfg_PLAY(SoArm100ReachEnvCfg):
         self.observations.policy.enable_corruption = False
 
 
-# ----------------------------------------------------------------
-# --------------- ROSCON ES 2025 asset ---------------------------
-# ----------------------------------------------------------------
-
-
 @configclass
-class SoArm100ReachRosConEnvCfg(ReachEnvCfg):
+class SoArm101ReachEnvCfg(ReachEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
 
         # switch robot to franka
-        self.scene.robot = SO_ARM100_ROSCON_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+        self.scene.robot = SO_ARM101_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
         # override rewards
-        self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["wrist_2_link"]
-        self.rewards.end_effector_position_tracking_fine_grained.params["asset_cfg"].body_names = ["wrist_2_link"]
-        self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["wrist_2_link"]
+        self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["gripper_link"]
+        self.rewards.end_effector_position_tracking_fine_grained.params["asset_cfg"].body_names = ["gripper_link"]
+        self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["gripper_link"]
 
         self.rewards.end_effector_orientation_tracking.weight = 0.0
 
@@ -98,12 +89,12 @@ class SoArm100ReachRosConEnvCfg(ReachEnvCfg):
         )
         # override command generator body
         # end-effector is along z-direction
-        self.commands.ee_pose.body_name = ["wrist_2_link"]
+        self.commands.ee_pose.body_name = ["gripper_link"]
         # self.commands.ee_pose.ranges.pitch = (math.pi, math.pi)
 
 
 @configclass
-class SoArm100ReachRosConEnvCfg_PLAY(SoArm100ReachRosConEnvCfg):
+class SoArm101ReachEnvCfg_PLAY(SoArm101ReachEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
