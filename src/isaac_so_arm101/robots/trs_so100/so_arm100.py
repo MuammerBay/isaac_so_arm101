@@ -1,20 +1,3 @@
-# Copyright (c) 2024-2025, Muammer Bay (LycheeAI), Louis Le Lay
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-#
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-
-"""Configuration for the SO-ARM100 5-DOF robot arm for livestream.
-
-The following configurations are available:
-
-* :obj:`SO_ARM100_CFG`: SO-ARM100 robot arm configuration.
-"""
-
 from pathlib import Path
 
 import isaaclab.sim as sim_utils
@@ -27,11 +10,12 @@ TEMPLATE_ASSETS_DATA_DIR = Path(__file__).resolve().parent
 # Configuration
 ##
 
-
 SO_ARM100_CFG = ArticulationCfg(
-    spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{TEMPLATE_ASSETS_DATA_DIR}/usds/so_100.usd",
-        activate_contact_sensors=False,  # Adjust based on need
+    spawn=sim_utils.UrdfFileCfg(
+        fix_base=True,
+        replace_cylinders_with_capsules=True,
+        asset_path=f"{TEMPLATE_ASSETS_DATA_DIR}/urdf/so_arm100.urdf",
+        activate_contact_sensors=False, # set as false while waiting for capsule implementation
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
             max_depenetration_velocity=5.0,
@@ -41,16 +25,19 @@ SO_ARM100_CFG = ArticulationCfg(
             solver_position_iteration_count=8,
             solver_velocity_iteration_count=0,
         ),
+        joint_drive=sim_utils.UrdfConverterCfg.JointDriveCfg(
+            gains=sim_utils.UrdfConverterCfg.JointDriveCfg.PDGainsCfg(stiffness=0, damping=0)
+        ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        rot=(0.7071068, 0.0, 0.0, 0.7071068),  # Quaternion for 90 degrees rotation around Y-axis
+        rot=(0.7071, 0.0, 0.0, 0.7071),
         joint_pos={
-            "Shoulder_Rotation": 0.0,
-            "Shoulder_Pitch": 0.0,
-            "Elbow": 0.0,
-            "Wrist_Pitch": 0.0,
-            "Wrist_Roll": 0.0,
-            "Gripper": 0.3,  # Middle position to make movement more apparent
+            "shoulder_pan": 0.0,
+            "shoulder_lift": 1.57,
+            "elbow_flex": -1.57,
+            "wrist_flex": 1.0,
+            "wrist_roll": -1.57,
+            "gripper": 0.0,
         },
         # Set initial joint velocities to zero
         joint_vel={".*": 0.0},
@@ -63,26 +50,26 @@ SO_ARM100_CFG = ArticulationCfg(
         # Wrist Roll        moves: Gripper assembly             (~0.14kg)
         # Jaw               moves: Only moving jaw              (~0.034kg)
         "arm": ImplicitActuatorCfg(
-            joint_names_expr=["Shoulder_.*", "Elbow", "Wrist_.*"],
+            joint_names_expr=["shoulder_.*", "elbow_flex", "wrist_.*"],
             effort_limit_sim=1.9,
             velocity_limit_sim=1.5,
             stiffness={
-                "Shoulder_Rotation": 200.0,  # Highest - moves all mass
-                "Shoulder_Pitch": 170.0,  # Slightly less than rotation
-                "Elbow": 120.0,  # Reduced based on less mass
-                "Wrist_Pitch": 80.0,  # Reduced for less mass
-                "Wrist_Roll": 50.0,  # Low mass to move
+                "shoulder_pan": 200.0,  # Highest - moves all mass
+                "shoulder_lift": 170.0,  # Slightly less than rotation
+                "elbow_flex": 120.0,  # Reduced based on less mass
+                "wrist_flex": 80.0,  # Reduced for less mass
+                "wrist_roll": 50.0,  # Low mass to move
             },
             damping={
-                "Shoulder_Rotation": 80.0,
-                "Shoulder_Pitch": 65.0,
-                "Elbow": 45.0,
-                "Wrist_Pitch": 30.0,
-                "Wrist_Roll": 20.0,
+                "shoulder_pan": 80.0,
+                "shoulder_lift": 65.0,
+                "elbow_flex": 45.0,
+                "wrist_flex": 30.0,
+                "wrist_roll": 20.0,
             },
         ),
         "gripper": ImplicitActuatorCfg(
-            joint_names_expr=["Gripper"],
+            joint_names_expr=["gripper"],
             effort_limit_sim=2.5,  # Increased from 1.9 to 2.5 for stronger grip
             velocity_limit_sim=1.5,
             stiffness=60.0,  # Increased from 25.0 to 60.0 for more reliable closing
@@ -93,4 +80,3 @@ SO_ARM100_CFG = ArticulationCfg(
 )
 """Configuration of SO-ARM robot arm."""
 
-# Removed FRANKA_PANDA_HIGH_PD_CFG as it's not applicable here.

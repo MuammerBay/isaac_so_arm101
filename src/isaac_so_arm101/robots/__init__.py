@@ -9,4 +9,4 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 from .trs_so100.so_arm100 import *
-from .trs_so100_roscon.so_arm100_roscon import *
+from .trs_so101.so_arm101 import *
