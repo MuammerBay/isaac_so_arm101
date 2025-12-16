@@ -22,8 +22,8 @@ curl -LsSf https://astral.sh/uv/install.sh \| sh
 Clone the repository.
 
 ```bash
-git clone https://github.com/pal-robotics/pal_mjlab.git 
-cd pal_mjlab
+git clone https://github.com/MuammerBay/isaac_so_arm101.git
+cd isaac_so_arm101
 uv sync
 ```
 
