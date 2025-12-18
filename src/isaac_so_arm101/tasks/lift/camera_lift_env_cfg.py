@@ -120,7 +120,7 @@ class SoArm100CameraLiftCubeEnvCfg(SoArm100LiftCubeEnvCfg):
     def __post_init__(self):
         """Currently identical to the base variant but defined separately for camera tasks."""
         super().__post_init__()
-        self.scene.num_envs = 40
+        self.scene.num_envs = 70
         
         self.scene.robot = SO_ARM100_CFG.replace(
             prim_path="{ENV_REGEX_NS}/Robot",
