@@ -9,8 +9,9 @@ This repository implements tasks for the SO‑ARM100 and SO‑ARM101 robots usin
 
 ### 📰 News featuring this repository:
 
-- **23 April 2025:** NVIDIA Omniverse Livestream: Training a Robot from Scratch in Simulation (URDF → OpenUSD). [Watch on YouTube](https://www.youtube.com/watch?v=_HMk7I-vSBQ)
-- **19 April 2025:** LycheeAI Tutorial: How to Create External Projects in Isaac Lab. [Watch on YouTube](https://www.youtube.com/watch?v=i51krqsk8ps)
+- **Nov. 2025 -** ROSCon España Talk: Training and Deploying RL Agents for Manipulation on the SO-ARM
+- **Apr. 2025 -** NVIDIA Omniverse Livestream: Training a Robot from Scratch in Simulation (URDF → OpenUSD). [Watch on YouTube](https://www.youtube.com/watch?v=_HMk7I-vSBQ)
+- **Apr. 2025 -** LycheeAI Tutorial: How to Create External Projects in Isaac Lab. [Watch on YouTube](https://www.youtube.com/watch?v=i51krqsk8ps)
 
 ## Installation
 
