@@ -44,6 +44,38 @@ uv run zero_agent --task SO-ARM100-Reach-Play-v0    # send zero actions
 uv run random_agent --task SO-ARM100-Reach-Play-v0  # send random actions
 ```
 
+## Franka + ACT (lightweight imitation pipeline)
+
+A small, self-contained pipeline to collect scripted Franka lift demos, train a
+lightweight state-only [ACT](https://github.com/huggingface/lerobot) policy on them, and
+evaluate the trained policy in Isaac Lab. Useful as a minimal end-to-end imitation-learning
+example that does not depend on the SO-ARM task setup.
+
+Launch a standalone Franka arm in the simulator:
+
+```bash
+uv run view_franka
+```
+
+Run the full collect → train → evaluate loop:
+
+```bash
+# 1. collect scripted lift demos -> HDF5
+uv run python -m isaac_so_arm101.franka_act.collect_demos \
+  --dataset_file data/franka_lift.hdf5 --num_demos 50 --num_envs 8 --headless
+
+# 2. train a lightweight ACT policy (no simulator needed for this step)
+uv run python -m isaac_so_arm101.franka_act.train_act \
+  --dataset_file data/franka_lift.hdf5 --output_dir outputs/franka_act --steps 3000
+
+# 3. evaluate the trained checkpoint in Isaac Lab
+uv run python -m isaac_so_arm101.franka_act.eval_act \
+  --checkpoint_dir outputs/franka_act --num_envs 1
+```
+
+`train_act.py` requires [LeRobot](https://github.com/huggingface/lerobot) (for `ACTPolicy`) to be
+importable in the environment.
+
 ## Reaching
 
 Train a RL-based IK policy.
