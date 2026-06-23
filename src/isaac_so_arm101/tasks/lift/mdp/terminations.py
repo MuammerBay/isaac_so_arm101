@@ -19,7 +19,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import torch
-from isaaclab.assets import RigidObject
+from isaaclab.assets import Articulation, RigidObject
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.utils.math import combine_frame_transforms
 
@@ -31,28 +31,29 @@ def object_reached_goal(
     env: ManagerBasedRLEnv,
     command_name: str = "object_pose",
     threshold: float = 0.02,
+    minimal_height: float | None = 0.025,
     robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
     object_cfg: SceneEntityCfg = SceneEntityCfg("object"),
 ) -> torch.Tensor:
-    """Termination condition for the object reaching the goal position.
+    """Termination when the object is close to the commanded goal (and optionally lifted).
 
     Args:
         env: The environment.
         command_name: The name of the command that is used to control the object.
-        threshold: The threshold for the object to reach the goal position. Defaults to 0.02.
+        threshold: Max position error (m) for success.
+        minimal_height: If set, require object world z above this value (lifted). None disables the lift check.
         robot_cfg: The robot configuration. Defaults to SceneEntityCfg("robot").
         object_cfg: The object configuration. Defaults to SceneEntityCfg("object").
 
     """
-    # extract the used quantities (to enable type-hinting)
-    robot: RigidObject = env.scene[robot_cfg.name]
+    robot: Articulation = env.scene[robot_cfg.name]
     object: RigidObject = env.scene[object_cfg.name]
     command = env.command_manager.get_command(command_name)
-    # compute the desired position in the world frame
     des_pos_b = command[:, :3]
     des_pos_w, _ = combine_frame_transforms(robot.data.root_state_w[:, :3], robot.data.root_state_w[:, 3:7], des_pos_b)
-    # distance of the end-effector to the object: (num_envs,)
     distance = torch.norm(des_pos_w - object.data.root_pos_w[:, :3], dim=1)
-
-    # rewarded if the object is lifted above the threshold
-    return distance < threshold
+    at_goal = distance < threshold
+    if minimal_height is not None:
+        lifted = object.data.root_pos_w[:, 2] > minimal_height
+        return at_goal & lifted
+    return at_goal

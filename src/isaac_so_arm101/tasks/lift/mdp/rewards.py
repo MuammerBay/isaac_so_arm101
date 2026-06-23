@@ -86,3 +86,23 @@ def object_ee_distance_and_lifted(
     lift_reward = object_is_lifted(env, minimal_height, object_cfg)
     # Combine rewards multiplicatively
     return reach_reward * lift_reward
+
+
+def object_goal_success_bonus(
+    env: ManagerBasedRLEnv,
+    command_name: str,
+    pos_threshold: float,
+    minimal_height: float,
+    robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    object_cfg: SceneEntityCfg = SceneEntityCfg("object"),
+) -> torch.Tensor:
+    """Sparse shaping: 1.0 when the cube is lifted and within ``pos_threshold`` of the commanded goal (eval-aligned)."""
+    robot = env.scene[robot_cfg.name]
+    object: RigidObject = env.scene[object_cfg.name]
+    command = env.command_manager.get_command(command_name)
+    des_pos_b = command[:, :3]
+    des_pos_w, _ = combine_frame_transforms(robot.data.root_state_w[:, :3], robot.data.root_state_w[:, 3:7], des_pos_b)
+    distance = torch.norm(des_pos_w - object.data.root_pos_w[:, :3], dim=1)
+    lifted = object.data.root_pos_w[:, 2] > minimal_height
+    success = lifted & (distance < pos_threshold)
+    return success.float()
