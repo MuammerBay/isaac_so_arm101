@@ -18,13 +18,19 @@ from isaaclab_rl.rsl_rl import (
 
 @configclass
 class LiftCubePPORunnerCfg(RslRlOnPolicyRunnerCfg):
+    """PPO defaults for lift; conservative update vs template (stability + mild exploration)."""
+
     num_steps_per_env = 24
-    max_iterations = 1500
-    save_interval = 50
+    # Longer training for pick-to-goal (lift) policies; override with --max_iterations if needed.
+    max_iterations = 20000
+    # Fewer disk writes than one save per 50 iters when max_iterations is large.
+    save_interval = 500
     experiment_name = "lift"
-    empirical_normalization = False
+    # Running obs normalization in RSL-RL often stabilizes value learning for mixed-scale observations.
+    empirical_normalization = True
     policy = RslRlPpoActorCriticCfg(
-        init_noise_std=1.0,
+        # Lower starting exploration: precision placement needs the action noise to shrink, not grow.
+        init_noise_std=0.8,
         actor_hidden_dims=[256, 128, 64],
         critic_hidden_dims=[256, 128, 64],
         activation="elu",
@@ -32,11 +38,12 @@ class LiftCubePPORunnerCfg(RslRlOnPolicyRunnerCfg):
     algorithm = RslRlPpoAlgorithmCfg(
         value_loss_coef=1.0,
         use_clipped_value_loss=True,
-        clip_param=0.2,
-        entropy_coef=0.006,
-        num_learning_epochs=5,
-        num_mini_batches=4,
-        learning_rate=1.0e-4,
+        clip_param=0.15,
+        # 0.01 drove action-noise std up to ~3.0 in long runs (no fine placement). Lower it for precision.
+        entropy_coef=0.004,
+        num_learning_epochs=4,
+        num_mini_batches=8,
+        learning_rate=6.0e-5,
         schedule="adaptive",
         gamma=0.98,
         lam=0.95,

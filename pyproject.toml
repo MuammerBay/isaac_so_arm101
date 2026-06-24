@@ -19,6 +19,8 @@ play = "isaac_so_arm101.scripts.rsl_rl.play:main"
 list_envs = "isaac_so_arm101.scripts.list_envs:main"
 zero_agent = "isaac_so_arm101.scripts.zero_agent:main"
 random_agent = "isaac_so_arm101.scripts.random_agent:main"
+eval_lift_success = "isaac_so_arm101.scripts.eval_lift_success_rate:main"
+batch_eval_lift_checkpoints = "isaac_so_arm101.scripts.batch_eval_lift_checkpoints:main"
 
 [tool.uv]
 index-strategy = "unsafe-best-match"
@@ -32,6 +34,10 @@ url = "https://pypi.nvidia.com/"
 
 [[tool.uv.index]]
 url = "https://download.pytorch.org/whl/cu128"
+
+# flatdict 4.0.1 setup.py imports pkg_resources (removed in setuptools 82+)
+[tool.uv.extra-build-dependencies]
+flatdict = ["setuptools>=69,<82"]
 
 [build-system]
 requires = ["uv_build>=0.8.21,<0.9.0"]

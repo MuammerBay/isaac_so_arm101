@@ -58,6 +58,14 @@ Evaluate a trained policy.
 uv run play --task SO-ARM100-Reach-Play-v0
 ```
 
+## Lift (cube to goal)
+
+Train pick-to-goal on the cube task (default **20 000** PPO learning iterations, **3072** parallel envs — override with `--max_iterations` / `--num_envs` if VRAM is tight). One learning iteration rolls out `num_envs × num_steps_per_env` environment steps (`num_steps_per_env` is 24 in the bundled config).
+
+```bash
+uv run train --task Isaac-SO-ARM101-Lift-Cube-v0 --headless --device cuda
+```
+
 ## Sim2Real Transfer
 
 _Work in progress._
