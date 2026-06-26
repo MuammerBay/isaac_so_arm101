@@ -51,10 +51,11 @@ def main():
             index += 1
 
     print(table)
+    # close sim app
+    simulation_app.close()
+    return 0
 
 
 if __name__ == "__main__":
     # run the main function
     main()
-    # close sim app
-    simulation_app.close()

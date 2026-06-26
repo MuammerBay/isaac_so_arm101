@@ -61,10 +61,11 @@ def main():
 
     # close the simulator
     env.close()
+    # close sim app
+    simulation_app.close()
+    return 0
 
 
 if __name__ == "__main__":
     # run the main function
     main()
-    # close sim app
-    simulation_app.close()
